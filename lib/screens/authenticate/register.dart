@@ -17,6 +17,7 @@ class _RegisterState extends State<Register> {
   // text filed state
   String email = '';
   String password = '';
+  String error = '';
 
   @override
   Widget build(BuildContext context) {
@@ -49,14 +50,17 @@ class _RegisterState extends State<Register> {
               children: [
                 const SizedBox(height: 20.0),
                 TextFormField(
-                  validator: (val) => (val != null && val.isEmpty) ? 'Enter an email' : null,
+                  validator: (val) =>
+                      (val != null && val.isEmpty) ? 'Enter an email' : null,
                   onChanged: (val) {
-                    setState(() => email = val);
+                    setState(() => email = val.trim());
                   },
                 ),
                 const SizedBox(height: 20.0),
                 TextFormField(
-                  validator: (val) => (val != null && val.length < 6) ? 'Enter a password 6+ chars long' : null,
+                  validator: (val) => (val != null && val.length < 6)
+                      ? 'Enter a password 6+ chars long'
+                      : null,
                   onChanged: (val) {
                     setState(() => password = val);
                   },
@@ -68,14 +72,24 @@ class _RegisterState extends State<Register> {
                       primary: Colors.pink[400],
                       textStyle: const TextStyle(color: Colors.white)),
                   onPressed: () async {
-                    if(_formKey.currentState!.validate()){
-                      print(email);
-                      print(password);
-                    } else {
-
+                    if (_formKey.currentState!.validate()) {
+                      // print(email);
+                      // print(password);
+                      dynamic result = await _auth.registerWithEmailAndPassword(
+                          email, password);
+                      if (result == null) {
+                        setState(() {
+                          error = 'please supply a valid email';
+                        });
+                      }
                     }
                   },
                   child: const Text('Register'),
+                ),
+                const SizedBox(height: 12.0),
+                Text(
+                  error,
+                  style: const TextStyle(color: Colors.red, fontSize: 14.0),
                 )
               ],
             ),
