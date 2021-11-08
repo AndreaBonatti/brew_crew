@@ -53,7 +53,7 @@ class _RegisterState extends State<Register> {
                   validator: (val) =>
                       (val != null && val.isEmpty) ? 'Enter an email' : null,
                   onChanged: (val) {
-                    setState(() => email = val.trim());
+                    setState(() => email = val);
                   },
                 ),
                 const SizedBox(height: 20.0),
