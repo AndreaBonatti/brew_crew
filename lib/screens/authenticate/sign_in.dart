@@ -16,12 +16,12 @@ class _SignInState extends State<SignIn> {
       appBar: AppBar(
         backgroundColor: Colors.brown[400],
         elevation: 0.0,
-        title: Text('Sign in to Brew Crew'),
+        title: const Text('Sign in to Brew Crew'),
       ),
       body: Container(
-        padding: EdgeInsets.symmetric(vertical: 20.0, horizontal: 15.0),
+        padding: const EdgeInsets.symmetric(vertical: 20.0, horizontal: 15.0),
         child: ElevatedButton(
-          child: Text('Sign in anon'),
+          child: const Text('Sign in anon'),
           onPressed: () async{
             dynamic result = await _auth.signInAnon();
             if(result == null){
