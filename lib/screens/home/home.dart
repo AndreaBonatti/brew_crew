@@ -16,7 +16,8 @@ class Home extends StatelessWidget {
           context: context,
           builder: (context) {
             return Container(
-              padding: const EdgeInsets.symmetric(vertical: 20.0, horizontal: 60.0),
+              padding:
+                  const EdgeInsets.symmetric(vertical: 20.0, horizontal: 60.0),
               child: SettingsForm(),
             );
           });
@@ -59,7 +60,12 @@ class Home extends StatelessWidget {
             ),
           ],
         ),
-        body: BrewList(),
+        body: Container(
+            decoration: const BoxDecoration(
+                image:
+                    DecorationImage(image: AssetImage('assets/coffee_bg.png'), fit: BoxFit.cover)
+            ),
+            child: BrewList()),
       ),
     );
   }
