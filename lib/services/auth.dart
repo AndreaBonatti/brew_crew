@@ -32,15 +32,13 @@ class AuthService {
 
 // Sign in with email & password
   Future signInWithEmailAndPassword(String email, String password) async {
-    try{
-      UserCredential result = await _auth.signInWithEmailAndPassword(email: email, password: password);
+    try {
+      UserCredential result = await _auth.signInWithEmailAndPassword(
+          email: email, password: password);
       User? user = result.user;
 
-      // crate a new document for the user with uid
-      await DatabaseService(uid: user!.uid).updateUserData('0', 'new crew member', 100).then((value) => null);
-
       return _userFromFireBaseUser(user);
-    } catch(e){
+    } catch (e) {
       print(e.toString());
       return null;
     }
@@ -48,11 +46,18 @@ class AuthService {
 
 // Register with email & password
   Future registerWithEmailAndPassword(String email, String password) async {
-    try{
-      UserCredential result = await _auth.createUserWithEmailAndPassword(email: email, password: password);
+    try {
+      UserCredential result = await _auth.createUserWithEmailAndPassword(
+          email: email, password: password);
       User? user = result.user;
-      return _userFromFireBaseUser(user!);
-    } catch(e){
+
+      // crate a new document for the user with uid
+      await DatabaseService(uid: user!.uid)
+          .updateUserData('0', 'new crew member', 100)
+          .then((value) => null);
+
+      return _userFromFireBaseUser(user);
+    } catch (e) {
       print(e.toString());
       return null;
     }
@@ -60,9 +65,9 @@ class AuthService {
 
 // Sign out
   Future signOut() async {
-    try{
+    try {
       return await _auth.signOut();
-    } catch(e){
+    } catch (e) {
       print(e.toString());
       return null;
     }

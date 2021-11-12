@@ -19,7 +19,7 @@ class _BrewListState extends State<BrewList> {
     //   print(doc.data());
     // }
 
-    final brews = Provider.of<List<Brew>>(context);
+    final brews = Provider.of<List<Brew>>(context) ?? [];
     for (var brew in brews) {
       print(brew.name);
       print(brew.sugars);
